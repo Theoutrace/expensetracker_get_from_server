@@ -47,9 +47,6 @@ function onSubmit(event) {
 //Main Function:
 function appendList(myObj) {
     
-
-
-
     const allh4inFront =document.getElementsByClassName('desc-h4-class')
     
 
