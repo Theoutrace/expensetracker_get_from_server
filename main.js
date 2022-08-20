@@ -7,7 +7,7 @@ submit.addEventListener('click', onSubmit)
 
 // DOM Content Loaded Event Listener
 document.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/214983645cf4452a800285f62dabe81c/expenses')
+    axios.get('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses')
     .then((response) => {
         for (let i=0; i<response.data.length; i++){
             appendList(response.data[i]);
@@ -82,18 +82,16 @@ function appendList(myObj) {
     innerDiv.appendChild(deleteButton)
 
     //================================================================================
-    // changes happened here to post to the server
+    // post to the server
     //================================================================================
     
-    console.log('myObj: ', myObj);
-    axios.post('https://crudcrud.com/api/214983645cf4452a800285f62dabe81c/expenses',myObj)
+    axios.post('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses',myObj)
     .then((response) => {
         console.log("from post",response);
     })
     .catch((err) => {
         console.log('from post error',err);
     });
-    // localStorage.setItem(myObj.desc, stringifiedData)
 
     //=================================================================================
 
@@ -102,10 +100,11 @@ function appendList(myObj) {
     parentDiv.appendChild(innerDiv)
 
     //Delete Button Function:
-    deleteButton.addEventListener('click', function(){
+    deleteButton.addEventListener('click', deleteData)
+    function deleteData(){
 
         //================================================================================
-        // changes happened here to delete from the server
+        // delete from the server
         //================================================================================
 
 
@@ -116,7 +115,7 @@ function appendList(myObj) {
 
         // we need to remove from server
         // search using id and then remove on button click from server
-        axios.get('https://crudcrud.com/api/214983645cf4452a800285f62dabe81c/expenses')
+        axios.get('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses')
         .then((response) => {
             for (let i=0; i<response.data.length; i++){
                 console.log(response.data[i]._id);
@@ -124,7 +123,7 @@ function appendList(myObj) {
                 if(toMatch.amt == priceforremovingfromlocal && toMatch.cat == cateforremovingfromlocal && toMatch.desc == descforremovingfromlocal){
                     let targetId = toMatch._id
                     console.log('toMatch',toMatch);
-                    axios.delete(`https://crudcrud.com/api/214983645cf4452a800285f62dabe81c/expenses/${targetId}`)
+                    axios.delete(`https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses/${targetId}`)
                     .then((response) => console.log('deleted',targetId))
                     .catch((err) => console.log(err))
                 }
@@ -132,12 +131,8 @@ function appendList(myObj) {
         })
         .catch((err) => console.log(err))
 
-
-
-
-        // localStorage.removeItem(descforremovingfromlocal.innerHTML) 
         deleteButton.parentElement.remove() 
-    })
+    }
 
 
     //Edit Button Function:
@@ -150,8 +145,9 @@ function appendList(myObj) {
         description.value = targetdesc;
         category.value = targetCategory
 
-        editButton.parentElement.remove() 
-        localStorage.removeItem(targetdesc)
+        // editButton.parentElement.remove() 
+        deleteData()
+        // localStorage.removeItem(targetdesc)
 
     })
 
