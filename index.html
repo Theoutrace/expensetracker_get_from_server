@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <form id="form-control">
+            <input type="text" placeholder="Enter Amount:" id="amount" class="inputs">
+            <br><br>
+            <input type="text" placeholder="Enter Description:" id="desc" class="inputs">
+            <br><br>
+            <select name="category" id="category">
+                <option value="Choose a category:">Choose a category:</option>
+                <option value="EMI">EMI</option>
+                <option value="RENT">RENT</option>
+                <option value="FOOD">FOOD</option>
+                <option value="MOVIE">MOVIE</option>
+                <option value="PETROL">PETROL</option>
+            </select>
+            <button id="submitbtn">Submit</button>
+        </form>
+
+        <div id="total-items" class="total-items">
+            
+        </div>
+    </div>
+</body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+<script src="main.js"></script>
+
+</html>
