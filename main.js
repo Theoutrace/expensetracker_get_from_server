@@ -7,7 +7,7 @@ submit.addEventListener('click', onSubmit)
 
 // DOM Content Loaded Event Listener
 document.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses')
+    axios.get('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses')
     .then((response) => {
         for (let i=0; i<response.data.length; i++){
             appendList(response.data[i]);
@@ -85,7 +85,7 @@ function appendList(myObj) {
     // post to the server
     //================================================================================
     
-    axios.post('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses',myObj)
+    axios.post('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses',myObj)
     .then((response) => {
         console.log("from post",response);
     })
@@ -115,7 +115,7 @@ function appendList(myObj) {
 
         // we need to remove from server
         // search using id and then remove on button click from server
-        axios.get('https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses')
+        axios.get('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses')
         .then((response) => {
             for (let i=0; i<response.data.length; i++){
                 console.log(response.data[i]._id);
@@ -123,7 +123,7 @@ function appendList(myObj) {
                 if(toMatch.amt == priceforremovingfromlocal && toMatch.cat == cateforremovingfromlocal && toMatch.desc == descforremovingfromlocal){
                     let targetId = toMatch._id
                     console.log('toMatch',toMatch);
-                    axios.delete(`https://crudcrud.com/api/67a81b87577e41dd90a1c35e4192ccbe/expenses/${targetId}`)
+                    axios.delete(`https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses/${targetId}`)
                     .then((response) => console.log('deleted',targetId))
                     .catch((err) => console.log(err))
                 }
@@ -145,9 +145,16 @@ function appendList(myObj) {
         description.value = targetdesc;
         category.value = targetCategory
 
-        // editButton.parentElement.remove() 
+        // edit from here-----------------------------------------------------------------------------------------------
+        const descforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.innerHTML;
+        const cateforremovingfromlocal = deleteButton.previousSibling.previousSibling.innerHTML;
+        const priceforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
+
+
+        // we need to remove from server
+
+        editButton.parentElement.remove() 
         deleteData()
-        // localStorage.removeItem(targetdesc)
 
     })
 
