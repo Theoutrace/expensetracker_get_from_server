@@ -7,7 +7,7 @@ submit.addEventListener('click', onSubmit)
 
 // DOM Content Loaded Event Listener
 document.addEventListener('DOMContentLoaded',()=>{
-    axios.get('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses')
+    axios.get('https://crudcrud.com/api/76f67297d41240039db66c0248194d97/expenses')
     .then((response) => {
         for (let i=0; i<response.data.length; i++){
             appendList(response.data[i]);
@@ -32,10 +32,6 @@ function onSubmit(event) {
     description.value = ''
     category.value = ''
 }
-
-
-
-
 
 //Main Function:
 function appendList(myObj) {
@@ -85,7 +81,7 @@ function appendList(myObj) {
     // post to the server
     //================================================================================
     
-    axios.post('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses',myObj)
+    axios.post('https://crudcrud.com/api/76f67297d41240039db66c0248194d97/expenses',myObj)
     .then((response) => {
         console.log("from post",response);
     })
@@ -94,7 +90,6 @@ function appendList(myObj) {
     });
 
     //=================================================================================
-
 
     const parentDiv = document.getElementById('total-items')
     parentDiv.appendChild(innerDiv)
@@ -107,15 +102,13 @@ function appendList(myObj) {
         // delete from the server
         //================================================================================
 
-
         const descforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.innerHTML;
         const cateforremovingfromlocal = deleteButton.previousSibling.previousSibling.innerHTML;
         const priceforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
 
-
         // we need to remove from server
         // search using id and then remove on button click from server
-        axios.get('https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses')
+        axios.get('https://crudcrud.com/api/76f67297d41240039db66c0248194d97/expenses')
         .then((response) => {
             for (let i=0; i<response.data.length; i++){
                 console.log(response.data[i]._id);
@@ -123,7 +116,7 @@ function appendList(myObj) {
                 if(toMatch.amt == priceforremovingfromlocal && toMatch.cat == cateforremovingfromlocal && toMatch.desc == descforremovingfromlocal){
                     let targetId = toMatch._id
                     console.log('toMatch',toMatch);
-                    axios.delete(`https://crudcrud.com/api/bf9420c1a91746e9aef42802da5410e1/expenses/${targetId}`)
+                    axios.delete(`https://crudcrud.com/api/76f67297d41240039db66c0248194d97/expenses/${targetId}`)
                     .then((response) => console.log('deleted',targetId))
                     .catch((err) => console.log(err))
                 }
@@ -134,7 +127,6 @@ function appendList(myObj) {
         deleteButton.parentElement.remove() 
     }
 
-
     //Edit Button Function:
     editButton.addEventListener('click', function(){
         const targetamt = editButton.previousSibling.previousSibling.previousSibling.innerHTML 
@@ -144,12 +136,6 @@ function appendList(myObj) {
         amount.value = targetamt;
         description.value = targetdesc;
         category.value = targetCategory
-
-        // edit from here-----------------------------------------------------------------------------------------------
-        const descforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.innerHTML;
-        const cateforremovingfromlocal = deleteButton.previousSibling.previousSibling.innerHTML;
-        const priceforremovingfromlocal = deleteButton.previousSibling.previousSibling.previousSibling.previousSibling.innerHTML;
-
 
         // we need to remove from server
 
